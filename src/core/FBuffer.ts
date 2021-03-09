@@ -57,12 +57,22 @@ export function IsOffsetRange(x: any) : x is FDataOffsetRange {
  * minimum overhead 😌
  */
 export default class FBuffer {
-
+    /** The WebGL Buffer or in other word our GPU Buffer */
     private rawBuffer: WebGLBuffer;
+    /** The WebGL buffer target. */
     private target: FBufferTarget;
+    /** The WebGL buffer usage. */
     private usage: FBufferUsage;
+    /** The WebGL context. */
     private gl: FContext;
 
+    /**
+     * Create new FBuffer.
+     * @param gl The context.
+     * @param target The GPU Buffer target.
+     * @param usage The GPU Buffer usage.
+     * @param params GPU Buffer data.
+     */
     constructor( gl: FContext, target: FBufferTarget, usage: FBufferUsage, params: number | BufferSource | FDataOffsetRange ) {
         const buffer = gl.createBuffer();
 
