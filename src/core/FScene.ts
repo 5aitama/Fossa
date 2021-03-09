@@ -25,18 +25,23 @@ export default class FScene {
      * Create a new Window.
      * @param canvas The canvas
      */
-    constructor(canvas?: HTMLCanvasElement) {
+    constructor( canvas?: HTMLCanvasElement ) {
 
         if(!canvas)
             throw new Error("Can't create window : Canvas element is null");
 
-        const ctx = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
+        const ctx = (canvas.getContext("webgl2") ?? canvas.getContext("webgl"));
         
         if(!ctx)
             throw new Error("WebGL is not supported on your browser !");
-
+        
+        console.log(FScene.IsWebGL2(ctx));
         this.gl = ctx;
         this.canvas = canvas;
+    }
+
+    static IsWebGL2(ctx: any): ctx is WebGL2RenderingContext {
+        return (ctx as WebGL2RenderingContext).READ_BUFFER !== undefined;
     }
 
     Render(time: number) {
